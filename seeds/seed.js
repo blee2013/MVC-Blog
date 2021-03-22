@@ -6,7 +6,7 @@ const seedComments = require('./comment-seeds');
 // const { User, Post, Comment} = require('../models');
 
 
-x
+
 const seedAll = async () => {
     await sequelize.sync({ force: true });
     console.log('--------------');
