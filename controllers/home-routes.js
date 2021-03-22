@@ -11,12 +11,12 @@ Post.findAll({
         'id',
         'title',
         'content_text',
-        'created-at'
+        'created_at'
     ],
     include: [
         {
             model: Comment,
-            attributes: ['id','comment_text', 'user_id', 'post_id', 'created-at'],
+            attributes: ['id','comment_text', 'user_id', 'post_id', 'created_at'],
             include: {
                 model: User,
                 attributes: ['username']
