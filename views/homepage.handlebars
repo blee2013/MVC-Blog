@@ -7,11 +7,11 @@
             <a href="/post/{{post.id}}">{{post.title}}</a>
         </h2>
         
-        <p>Created by {{postt.user.id}} on {{format_date post.date_created}}</p>
+        <p>Created by {{post.user.id}} on {{format_date post.date_created}}</p>
     </div>
     <div class="col-md-7">
         <p>
-            {{post.content}}
+            <a href="/post/{{post.id}}">{{post.comments.length}}</a>
         </p>
     </div>
 </div>
