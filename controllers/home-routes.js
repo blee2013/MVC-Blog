@@ -5,35 +5,35 @@ const sequelize = require('../config/connection');
 
 //posts for users
 router.get('/', async (req, res) => {
-   
-Post.findAll({
-    attributes: [
-        'id',
-        'title',
-        'content_text',
-        'created_at'
-    ],
-    include: [
-        {
-            model: Comment,
-            attributes: ['id','comment_text', 'user_id', 'post_id', 'created_at'],
-            include: {
+
+    Post.findAll({
+        attributes: [
+            'id',
+            'title',
+            'content',
+            'created_at'
+        ],
+        include: [
+            {
+                model: Comment,
+                attributes: ['id', 'comment', 'user_id', 'post_id', 'created_at'],
+                include: {
+                    model: User,
+                    attributes: ['username']
+                }
+            },
+            {
                 model: User,
                 attributes: ['username']
             }
-        },
-        {
-            model: User,
-            attributes: ['username']
-        }
-    ]
-}).then(dbPostData=> {
-    const posts = dbPostData.map(post => post.get({ plain: true}));
-    res.render('homepage', {
-        posts, 
-        loggedIn: req.session.loggedIn
-    });
-}).catch(err => {
+        ]
+    }).then(dbPostData => {
+        const posts = dbPostData.map(post => post.get({ plain: true }));
+        res.render('homepage', {
+            posts,
+            loggedIn: req.session.loggedIn
+        });
+    }).catch(err => {
         console.log(err);
         res.status(500).json(err);
     });
@@ -59,13 +59,13 @@ router.get('/dashboard', (req, res) => {
         attributes: [
             'id',
             'title',
-            'content_text',
+            'content',
             'created_at'
         ],
         include: [
             {
                 model: Comment,
-                attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+                attributes: ['id', 'comment', 'post_id', 'user_id', 'created_at'],
                 include: {
                     model: User,
                     attributes: ['username']
@@ -77,7 +77,7 @@ router.get('/dashboard', (req, res) => {
             }
         ]
     }).then(dbPostData => {
-       
+
         const posts = dbPostData.map(post => post.get({ plain: true }));
         res.render('homepage', { posts, loggedIn: req.session.loggedIn });
     })
@@ -107,13 +107,13 @@ router.get('/post/:id', (req, res) => {
         attributes: [
             'id',
             'title',
-            'content_text',
+            'content',
             'time_posted'
         ],
         include: [
             {
                 model: Comment,
-                attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+                attributes: ['id', 'comment', 'post_id', 'user_id', 'created_at'],
                 include: {
                     model: User,
                     attributes: ['username']

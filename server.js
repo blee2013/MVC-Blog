@@ -1,3 +1,4 @@
+require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
@@ -22,7 +23,7 @@ const sess = {
 };
 
 
-// const helpers = require('./utils/helpers');
+const helpers = require('./utils/helpers');
 
 const hbs = exphbs.create({});
 
@@ -40,7 +41,10 @@ app.set('view engine', 'handlebars');
 // turn on routes
 app.use(routes);
 
+app.use(require('./controllers/'));
+
+
 // turn on conneciton to db and server
 sequelize.sync({ force: false }).then(() => {
-    app.listen(PORT, () => console.log('Now listening'));
+    app.listen(PORT, () => console.log('Now listening'+PORT));
 });
